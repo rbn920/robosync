@@ -11,4 +11,5 @@ class testMirror(unittest.TestCase):
             with open(os.path.join(d_name, f_name), 'w') as f:
                 f.write('foobar')
 
-
+if __name__ == '__main__':
+    unittest.main()
