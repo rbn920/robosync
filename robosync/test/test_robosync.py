@@ -1,6 +1,7 @@
 import unittest
 import os
 import shutil
+from robosync import *
 
 class testMirror(unittest.TestCase):
 
