@@ -36,7 +36,6 @@ class testMirror(unittest.TestCase):
         outlist = robosync.read('dest_file.txt')
         self.assertListEqual(inlist, self.source_dirs)
         self.assertListEqual(outlist, self.dest_dirs)
-        self.assertListEqual(inlist, [1, 2, 3])
 
     def test_mirror(self):
         pass
