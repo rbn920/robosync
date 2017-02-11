@@ -8,8 +8,15 @@ class testMirror(unittest.TestCase):
         os.mkdir('test_source')
         os.mkdir('test_dest')
         source_dirs = ['dir1', 'dir2', 'dir3']
+        dest_dirs = ['dir1_c', 'dir2_c', 'dir3_c']
         filenames = ['file1.txt', 'file2.txt', 'file3.txt']
         contents = ['foobar1', 'foobar2', 'foobar3']
+        with open('source_file.txt', 'w') as f:
+            f.write('\n'.join(source_dirs))
+
+        with open('dest_file.txt', 'w') as f:
+            f.write('\n'.join(dest_dirs))
+
         for d_name, f_name, content, in zip(source_dirs, filenames, contents):
             new_dir = os.path.join('test_source', d_name)
             os.mkdir(new_dir)
@@ -20,6 +27,8 @@ class testMirror(unittest.TestCase):
     def tearDown(self):
         shutil.rmtree('test_source')
         shutil.rmtree('test_dest')
+        os.remove('source_file.txt')
+        os.remove('dest_file.txt')
 
 
     def test_mirror(self):
