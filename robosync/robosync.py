@@ -7,7 +7,7 @@ def read(txtfile):
 
     return dir_names
 
-main(infile, outfile):
+def main(infile, outfile):
 
     sources = read(infile)
     destinations = read(outfile)
