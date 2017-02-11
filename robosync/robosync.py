@@ -3,7 +3,7 @@ import sys
 
 def read(txtfile):
     with open(txtfile, 'r') as f:
-        dir_names = [folder for folder in f]
+        dir_names = [folder.rstrip() for folder in f]
 
     return dir_names
 
