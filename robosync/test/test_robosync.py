@@ -6,8 +6,8 @@ import robosync
 class testMirror(unittest.TestCase):
 
     def setUp(self):
-        os.mkdir('test_source')
-        os.mkdir('test_dest')
+        os.mkdir('testing_dir')
+        os.chdir('testing_dir')
         self.source_dirs = ['dir1', 'dir2', 'dir3']
         self.dest_dirs = ['dir1_c', 'dir2_c', 'dir3_c']
         filenames = ['file1.txt', 'file2.txt', 'file3.txt']
@@ -19,17 +19,14 @@ class testMirror(unittest.TestCase):
             f.write('\n'.join(self.dest_dirs))
 
         for d_name, f_name, content, in zip(self.source_dirs, filenames, contents):
-            new_dir = os.path.join('test_source', d_name)
-            os.mkdir(new_dir)
-            with open(os.path.join('test_source', d_name, f_name), 'w') as f:
+            os.mkdir(d_name)
+            with open(os.path.join(d_name, f_name), 'w') as f:
                 f.write(content)
 
 
     def tearDown(self):
-        shutil.rmtree('test_source')
-        shutil.rmtree('test_dest')
-        os.remove('source_file.txt')
-        os.remove('dest_file.txt')
+        os.chdir('..')
+        shutil.rmtree('testing_dir')
 
     def test_read(self):
         inlist = robosync.read('source_file.txt')
@@ -38,7 +35,10 @@ class testMirror(unittest.TestCase):
         self.assertListEqual(outlist, self.dest_dirs)
 
     def test_mirror(self):
-        pass
+        robosync.main('source_file.txt', 'dest_file.txt')
+        file1 = robosync.read(os.path.join('dir1_c', 'file1.txt'))
+        self.assertEqual(file1[0], 'foobar1')
+
 
 if __name__ == '__main__':
     unittest.main()
